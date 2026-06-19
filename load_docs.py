@@ -30,13 +30,13 @@ print(f"Created {len(chunks)} chunks")
 # Step 3 — Embed the chunks
 print("\nEmbedding chunks (this may take a minute)...")
 model = SentenceTransformer('all-MiniLM-L6-v2')
-texts = [chunk.page_content for chunk in chunks]
-embeddings = model.encode(texts, show_progress_bar=True)
+texts = [chunk.page_content for chunk in chunks] 
+embeddings = model.encode(texts, show_progress_bar=True) 
 print("Done embedding!")
 
 # Step 4 — Store in ChromaDB (fresh start)
 print("\nStoring in ChromaDB...")
-client = chromadb.PersistentClient(path="./chroma_db")
+client = chromadb.PersistentClient(path="./chroma_db") 
 
 # Delete old collection if it exists so we start fresh
 try:
@@ -45,7 +45,7 @@ try:
 except:
     pass
 
-collection = client.create_collection("pediatric_guidelines")
+collection = client.create_collection("pediatric_guidelines") 
 collection.add(
     documents=texts,
     embeddings=embeddings.tolist(),
