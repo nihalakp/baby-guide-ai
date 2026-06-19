@@ -1,6 +1,10 @@
 # Developer notes
 CHEATSHEET.md
 
+# Database files
+chroma_db/
+docs/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
