@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from pediatric_qa import ask_pediatric_question
+from rag_pipeline import answer_question
 
 app = FastAPI()
 
@@ -35,5 +35,5 @@ def root():
 # Main endpoint — this is what your React app will call
 @app.post("/ask")
 def ask(body: Question):
-    result = ask_pediatric_question(body.question, body.age)
+    result = answer_question(body.question, body.age)
     return result
