@@ -9,9 +9,9 @@ Actively building — week by week in public.
 ## What's working
 - Structured pediatric Q&A with age specific guidance
 - FastAPI backend with /ask endpoint
-- RAG pipeline over real AAP documents — coming next
-- React frontend — coming soon
-- Citation of exact AAP source for every answer — coming soon
+- RAG pipeline over real AAP documents
+- React frontend 
+- Citation of exact AAP source for every answer 
 
 ## What it does
 - Takes a pediatric question and your child's age
