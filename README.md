@@ -1,44 +1,58 @@
 # Baby Guide AI
 
-> Pediatric Q&A assistant grounded in AAP guidelines.
+> Pediatric Q&A assistant grounded in real AAP and CDC guidelines.
 > Built by a mom of a 2 year old who was tired of unreliable Google results at 11pm.
 
-## Status
-Actively building — week by week in public.
+**Live demo: https://baby-guide-ai.vercel.app**
 
-## What's working
-- Structured pediatric Q&A with age specific guidance
-- FastAPI backend with /ask endpoint
-- RAG pipeline over real AAP documents
-- React frontend 
-- Citation of exact AAP source for every answer 
+## Status
+Live and working end to end.
 
 ## What it does
 - Takes a pediatric question and your child's age
-- Returns a structured answer with:
+- Searches real CDC/AAP documents using semantic search
+- Returns a structured, cited answer:
   - Plain English response
   - Age-specific guidance
   - When to call the doctor
   - Safe at home or not
+  - The exact source the answer came from
+- Says "I don't know" instead of guessing when the documents don't cover something
+**Current knowledge base covers:** fever, childhood vaccinations, and common rashes. Built to be easily extended — adding a new topic just means dropping a CDC/AAP PDF into the `docs/` folder and rerunning the ingestion pipeline.
+
+## How it works
+1. Your question gets converted into a vector embedding (OpenAI text-embedding-3-small)
+2. ChromaDB searches real CDC/AAP documents for the most relevant chunks
+3. Those chunks are passed to Claude as context
+4. Claude answers only from the retrieved chunks, never from memory
+5. The answer is returned with a citation showing exactly where it came from
+
+## Stack
+**Backend:** Python, FastAPI, LangChain, ChromaDB, OpenAI embeddings API, Anthropic Claude API
+**Frontend:** React
+**Deployment:** Render (backend), Vercel (frontend)
+
+## Architecture notes
+Originally used a local sentence-transformers model for embeddings. Switched to OpenAI's hosted embeddings API after hitting Render's 512MB free tier memory limit — the local model alone needed 300-500MB just to load. The hosted API approach uses near-zero server memory and costs about $0.02 per million tokens, which is a fraction of a cent for this project's knowledge base.
 
 ## Try it yourself
+
+**Use the live app:**
+https://baby-guide-ai.vercel.app
+
+**Or run it locally:**
 ```bash
 git clone https://github.com/nihalakp/baby-guide-ai.git
 cd baby-guide-ai
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+python load_docs.py
 uvicorn main:app --reload
 ```
-Then open http://localhost:8000/docs to test the API interactively.
-
-## Stack
-Python · Anthropic Claude API · FastAPI · React (coming) · RAG/ChromaDB (coming)
+Then open http://localhost:8000/docs to test the API directly, or run the frontend separately from the `frontend/` folder with `npm install && npm start`.
 
 ## Why I built this
-I'm a senior engineer returning from maternity leave, pivoting to LLM engineering.
-My learning philosophy: build things you actually need, ship them publicly,
-figure it out as you go.
+I'm a senior engineer returning from maternity leave, pivoting to LLM engineering. My learning philosophy: build things you actually need, ship them publicly, figure it out as you go.
 
-Built it because I Googled "rashes around mouth after eating mango" at 10pm
-and got 47 conflicting results. There has to be a better way.
+Built it because I Googled "rashes around mouth after eating mango" at 10pm and got 47 conflicting results. There has to be a better way.
