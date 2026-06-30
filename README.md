@@ -56,4 +56,4 @@ Then open http://localhost:8000/docs to test the API directly, or run the fronte
 ## Why I built this
 I'm a senior engineer on a maternity break, using the time to pivot into LLM engineering. My approach has mostly been: pick something I actually need, build it, and figure out the gaps as I go rather than working through tutorials in order.
 
-This one started because my toddler got a rash after eating mango, and I did what every parent does at 10pm: opened Google and fell into a spiral of forty different opinions, half of them contradicting the other half, none of which I actually trusted. I just wanted one answer I could believe.
+This one started because my toddler got a rash after eating mango, and I did what every parent does in the middle of the night: opened Google and fell into a spiral of forty different opinions, half of them contradicting the other half, none of which I actually trusted. I just wanted one answer I could believe.
