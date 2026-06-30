@@ -18,7 +18,8 @@ Live and working end to end.
   - Safe at home or not
   - The exact source the answer came from
 - Says "I don't know" instead of guessing when the documents don't cover something
-**Current knowledge base covers:** fever, childhood vaccinations, and common rashes. Built to be easily extended — adding a new topic just means dropping a CDC/AAP PDF into the `docs/` folder and rerunning the ingestion pipeline.
+  
+**Current knowledge base covers:** Fever, Childhood Vaccinations, and Common Rashes. Built to be easily extended — adding a new topic just means dropping a CDC/AAP PDF into the `docs/` folder and rerunning the ingestion pipeline.
 
 ## How it works
 1. Your question gets converted into a vector embedding (OpenAI text-embedding-3-small)
