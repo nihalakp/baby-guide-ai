@@ -35,9 +35,9 @@ def answer_question(question: str, child_age: str) -> dict:
     # Step 1 — embed the question and search ChromaDB
     question_embedding = [get_embedding(question)]
     results = collection.query(
-        query_embeddings=question_embedding.tolist(),
-        n_results=3
-    )
+    query_embeddings=question_embedding,
+    n_results=3
+)
 
     # Step 2 — build context from retrieved chunks
     chunks = results['documents'][0]
