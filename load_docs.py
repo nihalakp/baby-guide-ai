@@ -72,7 +72,7 @@ questions = [
 
 for question in questions:
     print(f"\nQuestion: {question}")
-    question_embedding = model.encode([question])
+    question_embedding = get_embeddings_batch([question])
     results = collection.query(
         query_embeddings=question_embedding,
         n_results=2
