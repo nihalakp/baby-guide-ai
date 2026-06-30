@@ -54,6 +54,6 @@ uvicorn main:app --reload
 Then open http://localhost:8000/docs to test the API directly, or run the frontend separately from the `frontend/` folder with `npm install && npm start`.
 
 ## Why I built this
-I'm a senior engineer returning from maternity leave, pivoting to LLM engineering. My learning philosophy: build things you actually need, ship them publicly, figure it out as you go.
+'m a senior engineer on maternity leave, using the time to pivot into LLM engineering. My approach has mostly been: pick something I actually need, build it, and figure out the gaps as I go rather than working through tutorials in order.
 
-Built it because I Googled "rashes around mouth after eating mango" at 10pm and got 47 conflicting results. There has to be a better way.
+This one started because my toddler got a rash after eating mango, and I did what every parent does at 10pm: opened Google and fell into a spiral of forty different opinions, half of them contradicting the other half, none of which I actually trusted. I just wanted one answer I could believe.
