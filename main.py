@@ -2,12 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from rag_pipeline import answer_question
-import os
-import subprocess
 
-if not os.path.exists("chroma_db"):
-    print("ChromaDB not found, building it now...")
-    subprocess.run(["python", "load_docs.py"])
+
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
