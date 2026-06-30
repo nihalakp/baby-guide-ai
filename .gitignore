@@ -3,7 +3,9 @@ CHEATSHEET.md
 
 # Database files
 chroma_db/
-docs/
+
+
+.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
