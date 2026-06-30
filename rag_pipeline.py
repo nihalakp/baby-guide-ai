@@ -1,12 +1,19 @@
-from sentence_transformers import SentenceTransformer
 import chromadb
 import anthropic
 from dotenv import load_dotenv
+from openai import OpenAI
+
+openai_client = OpenAI()
+
+def get_embedding(text):
+    response = openai_client.embeddings.create(
+        model="text-embedding-3-small",
+        input=text
+    )
+    return response.data[0].embedding
 
 load_dotenv()
 
-# Load the same model used to embed the documents
-model = SentenceTransformer('all-MiniLM-L6-v2')
 
 # Connect to your existing ChromaDB
 client = chromadb.PersistentClient(path="./chroma_db")
@@ -26,7 +33,7 @@ def answer_question(question: str, child_age: str) -> dict:
     """
 
     # Step 1 — embed the question and search ChromaDB
-    question_embedding = model.encode([question])
+    question_embedding = [get_embedding(question)]
     results = collection.query(
         query_embeddings=question_embedding.tolist(),
         n_results=3

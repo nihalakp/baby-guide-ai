@@ -1,8 +1,12 @@
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from sentence_transformers import SentenceTransformer
+from openai import OpenAI
+from dotenv import load_dotenv
 import chromadb
 import os
+
+load_dotenv()
+openai_client = OpenAI()
 
 # Step 1 — Load all PDFs from the docs folder
 print("Loading PDFs...")
@@ -29,9 +33,15 @@ print(f"Created {len(chunks)} chunks")
 
 # Step 3 — Embed the chunks
 print("\nEmbedding chunks (this may take a minute)...")
-model = SentenceTransformer('all-MiniLM-L6-v2')
 texts = [chunk.page_content for chunk in chunks] 
-embeddings = model.encode(texts, show_progress_bar=True) 
+def get_embeddings_batch(texts):
+    response = openai_client.embeddings.create(
+        model="text-embedding-3-small",
+        input=texts
+    )
+    return [item.embedding for item in response.data]
+
+embeddings = get_embeddings_batch(texts)
 print("Done embedding!")
 
 # Step 4 — Store in ChromaDB (fresh start)
@@ -48,7 +58,7 @@ except:
 collection = client.create_collection("pediatric_guidelines") 
 collection.add(
     documents=texts,
-    embeddings=embeddings.tolist(),
+    embeddings=embeddings,
     ids=[f"chunk_{i}" for i in range(len(texts))]
 )
 print(f"Stored {len(texts)} chunks in ChromaDB!")
@@ -64,7 +74,7 @@ for question in questions:
     print(f"\nQuestion: {question}")
     question_embedding = model.encode([question])
     results = collection.query(
-        query_embeddings=question_embedding.tolist(),
+        query_embeddings=question_embedding,
         n_results=2
     )
     print("Answer chunks:")
