@@ -2,7 +2,7 @@ import chromadb
 import anthropic
 from dotenv import load_dotenv
 from openai import OpenAI
-
+load_dotenv()
 openai_client = OpenAI()
 
 def get_embedding(text):
@@ -12,7 +12,7 @@ def get_embedding(text):
     )
     return response.data[0].embedding
 
-load_dotenv()
+
 
 
 # Connect to your existing ChromaDB
