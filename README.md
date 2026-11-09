@@ -32,26 +32,6 @@ Live and working end to end.
 4. Claude is instructed to answer only from the retrieved chunks, not from memory
 5. The answer is returned with the source passages it came from
 
-## Evaluation (preliminary)
-I wrote a 25-question test, with Claude's help, to check three behaviors: answering correctly when the documents cover a question, declining when they don't, and escalating on safety-critical questions. `run_eval.py` runs it against the app and scores the results. These are first-pass results that I'm re-grading and expanding:
-
-| Group | Questions | Passed |
-|---|---|---|
-| Answerable from the documents | 9 | 9 |
-| Not covered, should decline | 9 | 9 |
-| Safety-critical | 4 | 4 |
-| Adversarial or vague | 3 | 2 |
-
-The one miss: asked "Is it normal?" with no context, the app assumed the question was about fever and answered confidently. It should have asked what the parent meant.
-
-It's a small set, run once per question, and not reviewed by a clinician, so it's a smoke test, not a benchmark.
-
-```bash
-python run_eval.py run baseline     # writes eval_results_baseline.csv
-# open the CSV and fill in verdict (PASS/FAIL), failure_type and notes
-python run_eval.py score baseline   # prints the metrics
-```
-
 ## Limitations
 - It only knows what is in its documents. Anything else gets a polite decline.
 - It does not diagnose and is not a substitute for your pediatrician.
