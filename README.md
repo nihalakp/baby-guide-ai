@@ -5,7 +5,7 @@
 
 **Live demo: https://baby-guide-ai.vercel.app**
 
-[Baby Guide AI](assets/screenshot.png)
+[Baby Guide AI](frontend/assets/screenshot.png)
 
 The first request after a quiet spell can take up to a minute while the free-tier backend wakes up.
 
