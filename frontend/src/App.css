@@ -1,35 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Lora:wght@500;600;700&display=swap');
 
-/* ---------- Themes ----------
-   Soft Nursery is estimated from the reference screenshots.
-   Clinical Calm and Modern Editorial are approximations from the theme swatches. */
-:root,
-[data-theme='soft-nursery'] {
-  --bg: #f9f6f1;
-  --header-bg: rgba(249, 246, 241, 0.92);
-  --glow-a: rgba(78, 124, 101, 0.1);
-  --glow-b: rgba(217, 119, 79, 0.07);
-  --surface: #ffffff;
-  --field: #faf4ec;
-  --ink: #24312a;
-  --ink-muted: #56655c;
-  --primary: #4e7c65;
-  --primary-ink: #ffffff;
-  --primary-text: #3f6a53;
-  --accent: #d9774f;
-  --accent-text: #a94d29;
-  --chip-bg: #fcebe3;
-  --chip-ink: #7a3f2b;
-  --border: #e7e0d5;
-  --dashed: #dccfc0;
-  --seg-bg: #e8f0ec;
-  --tint-a: #eef4f1;
-  --tint-b: #fdefe9;
-  --callout-bg: #fdf0ea;
-  --focus: #2f5e48;
-}
-
-[data-theme='clinical-calm'] {
+/* ---------- Design tokens (Clinical Calm) ----------
+   Colours are estimated from the reference design's swatches; tune them here. */
+:root {
   --bg: #f3f7fa;
   --header-bg: rgba(243, 247, 250, 0.92);
   --glow-a: rgba(42, 111, 156, 0.1);
@@ -52,40 +25,13 @@
   --tint-b: #e5f4f3;
   --callout-bg: #e8f4f4;
   --focus: #1d5273;
-}
 
-[data-theme='modern-editorial'] {
-  --bg: #fbfaf7;
-  --header-bg: rgba(251, 250, 247, 0.92);
-  --glow-a: rgba(28, 37, 65, 0.07);
-  --glow-b: rgba(224, 96, 63, 0.08);
-  --surface: #ffffff;
-  --field: #f6f3ee;
-  --ink: #151b30;
-  --ink-muted: #545b70;
-  --primary: #1c2541;
-  --primary-ink: #ffffff;
-  --primary-text: #1c2541;
-  --accent: #e0603f;
-  --accent-text: #b13f1d;
-  --chip-bg: #fdece6;
-  --chip-ink: #7d2e18;
-  --border: #e5e1d8;
-  --dashed: #d7d1c4;
-  --seg-bg: #eceef5;
-  --tint-a: #eceef5;
-  --tint-b: #fdeee8;
-  --callout-bg: #fdeee8;
-  --focus: #1c2541;
-}
-
-:root {
   --font-serif: 'Lora', Georgia, 'Times New Roman', serif;
   --font-sans: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'DM Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
   --radius-card: 28px;
   --radius-field: 18px;
-  --shadow-card: 0 1px 2px rgba(36, 49, 42, 0.04), 0 14px 34px rgba(36, 49, 42, 0.07);
+  --shadow-card: 0 1px 2px rgba(27, 42, 53, 0.04), 0 14px 34px rgba(27, 42, 53, 0.07);
 }
 
 /* ---------- Base ---------- */
@@ -253,7 +199,6 @@ button {
   gap: 12px;
 }
 
-.theme-switch,
 .main-nav {
   display: flex;
   align-items: center;
@@ -264,7 +209,6 @@ button {
   background: var(--surface);
 }
 
-.theme-option,
 .nav-button {
   display: inline-flex;
   align-items: center;
@@ -279,34 +223,14 @@ button {
   transition: background 0.15s ease, color 0.15s ease;
 }
 
-.theme-option.is-active {
-  background: var(--tint-a);
-  color: var(--ink);
-  box-shadow: 0 0 0 1px var(--border);
-}
-
 .nav-button.is-active {
   background: var(--primary);
   color: var(--primary-ink);
 }
 
-.theme-option:hover:not(.is-active),
 .nav-button:hover:not(.is-active) {
   background: var(--tint-a);
   color: var(--ink);
-}
-
-.swatch {
-  display: inline-flex;
-}
-.swatch i {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 2px solid var(--surface);
-}
-.swatch i + i {
-  margin-left: -5px;
 }
 
 /* ---------- Layout ---------- */
@@ -805,12 +729,6 @@ textarea.text-input {
 }
 
 @media (max-width: 760px) {
-  .theme-label {
-    display: none;
-  }
-  .theme-option {
-    padding: 8px 10px;
-  }
   .card {
     padding: 24px 20px;
   }

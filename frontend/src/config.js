@@ -25,12 +25,6 @@ export const AGE_UNITS = [
   { value: 'years', label: 'Years', singular: 'year', max: 18 },
 ];
 
-export const THEMES = [
-  { id: 'soft-nursery', label: 'Soft Nursery', swatch: ['#4e7c65', '#d9774f'] },
-  { id: 'clinical-calm', label: 'Clinical Calm', swatch: ['#2a6f9c', '#1f8a8a'] },
-  { id: 'modern-editorial', label: 'Modern Editorial', swatch: ['#1c2541', '#e0603f'] },
-];
-
 // Keep this list in sync with the PDFs in docs/ whenever you re-run load_docs.py.
 // The titles and publishers below are placeholders: set them to match your actual files.
 export const SOURCES = [
