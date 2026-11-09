@@ -1,79 +1,40 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
+import Header from './components/Header';
+import AskPage from './components/AskPage';
+import SourcesPage from './components/SourcesPage';
+import Footer from './components/Footer';
+import { THEMES } from './config';
+import { loadTheme, saveTheme } from './storage';
 
 function App() {
-  const [age, setAge] = useState('');
-  const [question, setQuestion] = useState('');
-  const [answer, setAnswer] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState('ask');
+  const [theme, setTheme] = useState(() => {
+    const saved = loadTheme();
+    return THEMES.some((t) => t.id === saved) ? saved : THEMES[0].id;
+  });
 
-  const handleAsk = async () => {
-    setLoading(true);
-    setAnswer(null);
-
-    try {
-        const response = await fetch('https://baby-guide-ai.onrender.com/ask', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question, age }),
-      });
-      const data = await response.json();
-      setAnswer(data);
-    } catch (error) {
-      setAnswer({ answer: 'Something went wrong. Please try again.' });
-    }
-
-    setLoading(false);
-  };
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    saveTheme(theme);
+  }, [theme]);
 
   return (
-    <div className="App">
-      <h1>Baby Guide AI</h1>
-      <p className="subtitle">Pediatric answers grounded in real CDC/AAP guidelines</p>
-
-      <div className="form">
-        <input
-          type="text"
-          placeholder="Child's age (e.g. 2 years)"
-          value={age}
-          onChange={(e) => setAge(e.target.value)}
-        />
-
-        <textarea
-          placeholder="Your question..."
-          value={question}
-          onChange={(e) => setQuestion(e.target.value)}
-        />
-
-        <button onClick={handleAsk} disabled={loading || !question || !age}>
-          {loading ? 'Searching guidelines...' : 'Ask Baby Guide AI'}
-        </button>
-      </div>
-
-      {answer && (
-        <div className="answer-card">
-          <h3>Answer</h3>
-          <p>{answer.answer}</p>
-
-          {answer.age_relevance && (
-            <>
-              <h3>For your age group</h3>
-              <p>{answer.age_relevance}</p>
-            </>
-          )}
-
-          {answer.when_to_call_doctor && (
-            <>
-              <h3>Call the doctor if</h3>
-              <p>{answer.when_to_call_doctor}</p>
-            </>
-          )}
-
-          {answer.source && (
-            <p className="source">Source: {answer.source}</p>
-          )}
+    <div className="app">
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
+      <Header page={page} onNavigate={setPage} theme={theme} onThemeChange={setTheme} />
+      <main id="main" className="container main">
+        {/* Both pages stay mounted so the form and answer survive switching tabs. */}
+        <div hidden={page !== 'ask'}>
+          <AskPage />
         </div>
-      )}
+        <div hidden={page !== 'sources'}>
+          <SourcesPage />
+        </div>
+      </main>
+      <Footer />
     </div>
   );
 }
