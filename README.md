@@ -46,8 +46,6 @@ Live and working end to end.
 ## Architecture notes
 Originally used a local sentence-transformers model for embeddings. Switched to OpenAI's hosted embeddings API after hitting Render's 512MB free tier memory limit — the local model alone needed 300-500MB just to load. The hosted API approach uses near-zero server memory and costs about $0.02 per million tokens, which is a fraction of a cent for this project's knowledge base.
 
-## How it was built
-I scoped the product, made the architecture decisions, debugged and deployed it, and decided how to evaluate it. I used Claude as a coding assistant throughout: much of the code was drafted with it, then run, debugged, and integrated by me. The frontend started as a design prototype on Emergent, and the final React code was written with Claude.
 
 ## Try it yourself
 
